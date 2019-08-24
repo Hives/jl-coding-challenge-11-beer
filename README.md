@@ -23,5 +23,5 @@ people to chose a latitude/longitude and range.
 
 Weirdly, IntelliJ seems to be telling me that my
 `ObjectMapper().writeValueAsString()` invocation doesn't compile, and yet the
-program will run. What's that about?
+program does run. What's that about?
 

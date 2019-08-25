@@ -25,3 +25,10 @@ Weirdly, IntelliJ seems to be telling me that my
 `ObjectMapper().writeValueAsString()` invocation doesn't compile, and yet the
 program does run. What's that about?
 
+I've got this:
+```kotlin
+fun String.deserializeToPubs() = Json.deserializer.readValue<Pubs>(this)
+```
+Might be better to make this more general by passing in the type to which you
+want to deserialize the JSON rather than hard-coding it in the method, but I
+can't work out how to do that.

@@ -13,5 +13,5 @@ object Json {
 
 }
 
-fun deserializeToPubs(urlString: String) = Json.deserializer.readValue<Pubs>(URL(urlString))
+fun deserializeToPubs(urlString: String) = Json.deserializer.readValue<Pubs>(URL(urlString)).pubs
 fun <T> T.serialize(): String = Json.serializer.writeValueAsString(this)

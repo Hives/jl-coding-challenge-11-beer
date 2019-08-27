@@ -9,12 +9,9 @@ class BeerApi() {
             .extractBeers()
             .serialize()
 
-    fun getListOfPubs(): List<Pub> =
-        deserializeToPubs(pubJsonUrl)
-            .pubs
-            .uniquify()
+    fun getListOfPubs() = deserializeToPubs(pubJsonUrl).removeDuplicates()
 
-    fun List<Pub>.extractBeers(): List<Beer> = this
+    fun List<Pub>.extractBeers() = this
         .map { pub -> pub.toListOfBeers() }
         .flatten()
         .sortedBy { beer -> beer.name }
@@ -22,8 +19,7 @@ class BeerApi() {
     fun Pub.toListOfBeers(): List<Beer> {
         val regularBeerDetails = this.regularBeers?.map { beer -> beer to true } ?: emptyList()
         val guestBeerDetails = this.guestBeers?.map { beer -> beer to false } ?: emptyList()
-        val allBeerDetails = regularBeerDetails + guestBeerDetails
-        val allBeers = allBeerDetails.map { beer ->
+        return (regularBeerDetails + guestBeerDetails).map { beer ->
             Beer(
                 name = beer.component1(),
                 pubName = this.name,
@@ -31,10 +27,9 @@ class BeerApi() {
                 regularBeer = beer.component2()
             )
         }
-        return allBeers
     }
 
-    fun List<Pub>.uniquify() = this
+    fun List<Pub>.removeDuplicates() = this
         .sortedByDescending { it.createTS }
         .distinctBy { it.id }
 }

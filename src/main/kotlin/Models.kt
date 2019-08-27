@@ -9,18 +9,9 @@ data class Pub(
     val guestBeers: List<String>?
 )
 
-data class Beers(val beers: List<Beer>)
-
 data class Beer(
     val name: String,
     val pubName: String,
     val pubService: String,
     val regularBeer: Boolean
 )
-
-// output should be a list of beers with this info:
-// - name
-// - pubName
-// - pubService
-// - regularBeer (Boolean)
-// beers may appear more than once.

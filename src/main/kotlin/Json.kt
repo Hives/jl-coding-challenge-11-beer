@@ -2,9 +2,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
+import java.net.URL
 
-private object Json {
+object Json {
     val serializer = jacksonObjectMapper()
 
     val deserializer = jacksonObjectMapper()
@@ -13,5 +13,5 @@ private object Json {
 
 }
 
-fun String.deserializeToPubs() = Json.deserializer.readValue<Pubs>(this)
+fun retrievePubJsonAndDeserialize(urlString: String) = Json.deserializer.readValue<Pubs>(URL(urlString))
 fun <T> T.serialize(): String = Json.serializer.writeValueAsString(this)

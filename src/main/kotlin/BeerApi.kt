@@ -1,6 +1,6 @@
 class BeerApi() {
-    val lng = -0.141499
-    val lat = 51.496466
+    val lng = -0.0395424
+    val lat = 51.5131086
     val deg = 0.003
     val pubJsonUrl = "https://pubcrawlapi.appspot.com/pubcache/?uId=mike&lng=$lng&lat=$lat&deg=$deg"
 

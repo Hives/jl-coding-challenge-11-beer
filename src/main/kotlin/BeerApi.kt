@@ -10,13 +10,9 @@ class BeerApi() {
             .serialize()
 
     fun getListOfPubs(): List<Pub> =
-        retrievePubJsonAndDeserialize(pubJsonUrl)
+        deserializeToPubs(pubJsonUrl)
             .pubs
             .uniquify()
-
-    fun List<Pub>.uniquify() = this
-        .sortedByDescending { it.createTS }
-        .distinctBy { it.id }
 
     fun List<Pub>.extractBeers(): List<Beer> = this
         .map { pub -> pub.toListOfBeers() }
@@ -37,6 +33,10 @@ class BeerApi() {
         }
         return allBeers
     }
+
+    fun List<Pub>.uniquify() = this
+        .sortedByDescending { it.createTS }
+        .distinctBy { it.id }
 }
 
 fun main() {

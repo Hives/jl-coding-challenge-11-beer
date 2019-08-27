@@ -12,14 +12,13 @@ class BeerApi() {
     fun getListOfPubs() = deserializeToPubs(pubJsonUrl).removeDuplicates()
 
     fun List<Pub>.extractBeers() = this
-        .map { pub -> pub.toListOfBeers() }
-        .flatten()
+        .flatMap { pub -> pub.toListOfBeers() }
         .sortedBy { beer -> beer.name }
 
     fun Pub.toListOfBeers(): List<Beer> {
         val pub = this
-        val regularBeerDetails = this.regularBeers?.map { beer -> beer to true } ?: emptyList()
-        val guestBeerDetails = this.guestBeers?.map { beer -> beer to false } ?: emptyList()
+        val regularBeerDetails = pub.regularBeers?.map { beer -> beer to true } ?: emptyList()
+        val guestBeerDetails = pub.guestBeers?.map { beer -> beer to false } ?: emptyList()
         return (regularBeerDetails + guestBeerDetails).map { beer ->
             Beer(
                 name = beer.component1(),

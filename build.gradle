@@ -8,7 +8,7 @@ plugins {
 }
 
 apply plugin: 'application'
-mainClassName = "BeerApiKt"
+mainClassName = "MainKt"
 
 version '1.0-SNAPSHOT'
 
@@ -19,6 +19,9 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+"
+    compile group: "org.http4k", name: "http4k-core", version: "3.177.0"
+    compile group: "org.http4k", name: "http4k-server-jetty", version: "3.177.0"
+    compile group: "org.http4k", name: "http4k-client-apache", version: "3.177.0"
 }
 
 compileKotlin {

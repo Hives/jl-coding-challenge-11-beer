@@ -1,4 +1,4 @@
-class BeerApi() {
+object BeerApi {
     val lng = -0.0395424
     val lat = 51.5131086
     val deg = 0.003
@@ -35,5 +35,5 @@ class BeerApi() {
 }
 
 fun main() {
-    println(BeerApi().getBeerJson())
+    println(BeerApi.getBeerJson())
 }

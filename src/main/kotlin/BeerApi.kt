@@ -17,13 +17,14 @@ class BeerApi() {
         .sortedBy { beer -> beer.name }
 
     fun Pub.toListOfBeers(): List<Beer> {
+        val pub = this
         val regularBeerDetails = this.regularBeers?.map { beer -> beer to true } ?: emptyList()
         val guestBeerDetails = this.guestBeers?.map { beer -> beer to false } ?: emptyList()
         return (regularBeerDetails + guestBeerDetails).map { beer ->
             Beer(
                 name = beer.component1(),
-                pubName = this.name,
-                pubService = this.pubService,
+                pubName = pub.name,
+                pubService = pub.pubService,
                 regularBeer = beer.component2()
             )
         }

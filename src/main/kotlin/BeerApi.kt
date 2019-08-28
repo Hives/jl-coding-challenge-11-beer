@@ -17,14 +17,15 @@ class BeerApi() {
 
     fun Pub.toListOfBeers(): List<Beer> {
         val pub = this
-        val regularBeerDetails = pub.regularBeers?.map { beer -> beer to true } ?: emptyList()
-        val guestBeerDetails = pub.guestBeers?.map { beer -> beer to false } ?: emptyList()
-        return (regularBeerDetails + guestBeerDetails).map { beer ->
+        val regularBeerDetails = pub.regularBeers?.map { beerName -> beerName to true } ?: emptyList()
+        val guestBeerDetails = pub.guestBeers?.map { beerName -> beerName to false } ?: emptyList()
+        return (regularBeerDetails + guestBeerDetails).map { beerDetails ->
+            val (beerName, isRegularBeer) = beerDetails
             Beer(
-                name = beer.component1(),
+                name = beerName,
                 pubName = pub.name,
                 pubService = pub.pubService,
-                regularBeer = beer.component2()
+                regularBeer = isRegularBeer
             )
         }
     }

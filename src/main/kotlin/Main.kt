@@ -12,19 +12,18 @@ fun BeerServer() = BeerApp().asServer(Jetty(9000))
 
 fun BeerApp() = routes(
     "/ping" bind Method.GET to { _: Request -> Response(OK) },
-    "/beer" bind Method.GET to { request: Request ->
-        beeeer(request)
-    }
+    "/beer" bind Method.GET to { request: Request -> getBeer(request) }
 )
 
-fun beeeer(request: Request): Response {
-    val lng = request.query("lng")
-    val lat = request.query("lat")
-    val deg = request.query("deg")
-    if (lat == null || lng == null || deg == null) return Response(BAD_REQUEST)
-    return Response(OK).body(getBeerJson(lng, lat, deg))
+fun getBeer(request: Request): Response {
+    val params = BeerQueryParams(
+        lng = request.query("lng"),
+        lat = request.query("lat"),
+        deg = request.query("deg")
+    )
+    if (!params.validate()) return Response(BAD_REQUEST)
+    return Response(OK).body(getBeerJson(params))
 }
-
 
 fun main() {
     BeerServer().start()

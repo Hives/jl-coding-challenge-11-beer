@@ -5,8 +5,8 @@ data class Pub(
     val id: Int,
     val createTS: String,
     val pubService: String,
-    val regularBeers: List<String>?,
-    val guestBeers: List<String>?
+    val regularBeers: List<String> = emptyList(),
+    val guestBeers: List<String> = emptyList()
 )
 
 data class Beer(

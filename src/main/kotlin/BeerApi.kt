@@ -15,20 +15,17 @@ class BeerApi() {
         .flatMap { it.toListOfBeers() }
         .sortedBy { it.name }
 
-    fun Pub.toListOfBeers(): List<Beer> {
-        val pub = this
-        val regularBeerDetails = pub.regularBeers?.map { beerName -> beerName to true } ?: emptyList()
-        val guestBeerDetails = pub.guestBeers?.map { beerName -> beerName to false } ?: emptyList()
-        return (regularBeerDetails + guestBeerDetails).map { beerDetails ->
-            val (beerName, isRegularBeer) = beerDetails
-            Beer(
-                name = beerName,
-                pubName = pub.name,
-                pubService = pub.pubService,
-                regularBeer = isRegularBeer
-            )
-        }
-    }
+    fun Pub.toListOfBeers(): List<Beer> =
+        (this.regularBeers.map { it to true } + this.guestBeers.map { it to false })
+            .map { beerDetails ->
+                val (beerName, isRegularBeer) = beerDetails
+                Beer(
+                    name = beerName,
+                    pubName = this.name,
+                    pubService = this.pubService,
+                    regularBeer = isRegularBeer
+                )
+            }
 
     fun List<Pub>.removeDuplicates() = this
         .sortedByDescending { it.createTS }

@@ -1,15 +1,14 @@
 object BeerApi {
-    val lng = -0.0395424
-    val lat = 51.5131086
-    val deg = 0.003
-    val pubJsonUrl = "https://pubcrawlapi.appspot.com/pubcache/?uId=mike&lng=$lng&lat=$lat&deg=$deg"
-
-    fun getBeerJson(): String =
-        getListOfPubs()
+    fun getBeerJson(lng: String, lat: String, deg: String): String {
+        return getListOfPubs(lng, lat, deg)
             .extractBeers()
             .serialize()
+    }
 
-    fun getListOfPubs() = deserializeToPubs(pubJsonUrl).removeDuplicates()
+    fun getListOfPubs(lng: String, lat: String, deg: String): List<Pub> {
+        val pubJsonUrl = "https://pubcrawlapi.appspot.com/pubcache/?uId=mike&lng=$lng&lat=$lat&deg=$deg"
+        return deserializeToPubs(pubJsonUrl).removeDuplicates()
+    }
 
     fun List<Pub>.extractBeers() = this
         .flatMap { it.toListOfBeers() }
@@ -35,6 +34,6 @@ object BeerApi {
         .distinctBy { it.id }
 }
 
-fun main() {
-    println(BeerApi.getBeerJson())
-}
+//fun main() {
+//    println(BeerApi.getBeerJson())
+//}

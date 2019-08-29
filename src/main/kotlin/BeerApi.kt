@@ -12,8 +12,8 @@ class BeerApi() {
     fun getListOfPubs() = deserializeToPubs(pubJsonUrl).removeDuplicates()
 
     fun List<Pub>.extractBeers() = this
-        .flatMap { pub -> pub.toListOfBeers() }
-        .sortedBy { beer -> beer.name }
+        .flatMap { it.toListOfBeers() }
+        .sortedBy { it.name }
 
     fun Pub.toListOfBeers(): List<Beer> {
         val pub = this

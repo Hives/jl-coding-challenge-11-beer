@@ -22,7 +22,7 @@ fun beeeer(request: Request): Response {
     val lat = request.query("lat")
     val deg = request.query("deg")
     if (lat == null || lng == null || deg == null) return Response(BAD_REQUEST)
-    return Response(OK).body(BeerApi.getBeerJson(lng, lat, deg))
+    return Response(OK).body(getBeerJson(lng, lat, deg))
 }
 
 
